@@ -1,16 +1,70 @@
-# React + Vite
+# 🔐 Password Generator (React + Tailwind CSS)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern and secure **Password Generator** built using **React Hooks** and **Tailwind CSS**.  
+It allows users to generate strong random passwords with customizable options like length, numbers, and special characters.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live Features
 
-## React Compiler
+- 🔢 Adjustable password length (slider)
+- 🔠 Uppercase & lowercase letters
+- 🔢 Optional numbers
+- 🔣 Optional special characters
+- 📋 One-click copy to clipboard
+- ⚡ Instant password regeneration
+- 🎨 Clean & responsive UI with Tailwind CSS
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Built With
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **React**
+  - `useState`
+  - `useEffect`
+  - `useCallback`
+  - `useRef`
+- **Tailwind CSS**
+- **Vite** (for fast development)
+
+---
+
+## 📸 Preview
+
+> Password generator with gradient heading, slider, checkboxes, and copy button.
+
+---
+
+
+## 🧠 How It Works
+
+1. User selects:
+   - Password length
+   - Whether numbers and/or special characters are allowed
+2. Password is generated using:
+   - `Math.random()`
+   - Dynamic character set
+3. Password updates automatically using `useEffect`
+4. Copy button uses `useRef` + Clipboard API
+
+---
+
+## 📋 Code Highlights
+
+### Password Generation Logic
+
+```js
+const passGenerate = useCallback(() => {
+  let pass = "";
+  let str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+  if (numberAllowed) str += "0123456789";
+  if (charAllowed) str += "~!@#$^&*(}{)_-?/|][;";
+
+  for (let i = 0; i < length; i++) {
+    let char = Math.floor(Math.random() * str.length);
+    pass += str.charAt(char);
+  }
+
+  setPassword(pass);
+}, [length, numberAllowed, charAllowed]);
